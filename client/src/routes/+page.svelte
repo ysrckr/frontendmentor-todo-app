@@ -27,7 +27,8 @@ const toggleMode = () => {
   </button>
 </div>
 <form class="form">
-  <input class="form__input" type="text" name="" id="">
+  <label for="form--todo"></label>
+  <input class="form__input" type="text" name="todo" id="form--todo">
 </form>
 <ul class="list">
   <li class="list__item">
