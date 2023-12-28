@@ -74,13 +74,14 @@
 			</button>
 		</div>
 		<form class="form">
-			<label for="form--todo"></label>
+			<label class="form__label" for="form--todo"></label>
 			<input
 				class="form__input"
 				type="text"
 				name="todo"
 				id="form--todo"
 			/>
+      
 		</form>
 		<ul class="list">
 			{#each todos as todo (todo.id)}
