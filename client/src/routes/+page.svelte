@@ -80,6 +80,7 @@
 				type="text"
 				name="todo"
 				id="form--todo"
+        placeholder="Create a new todo..."
 			/>
       
 		</form>
