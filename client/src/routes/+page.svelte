@@ -1,5 +1,8 @@
 <script lang="ts">
 import cn from 'classnames'
+import type { Todo } from '$lib/types/todo'
+import TodoItem  from '../components/todo.svelte';
+
 type Mode = 'light' | 'dark'
 let mode: Mode = 'light'
 
@@ -7,6 +10,38 @@ const toggleMode = () => {
   mode = mode === 'light' ? 'dark' : 'light'
 }
 
+export let todos: Todo[] = [
+  {
+    id: 1,
+    text: 'Complete online JavaScript course',
+    completed: true
+  },
+  {
+    id: 2,
+    text: 'Jog around the park 3x',
+    completed: false
+  },
+  {
+    id: 3,
+    text: '10 minutes meditation',
+    completed: false
+  },
+  {
+    id: 4,
+    text: 'Read for 1 hour',
+    completed: false
+  },
+  {
+    id: 5,
+    text: 'Pick up groceries',
+    completed: false
+  },
+  {
+    id: 6,
+    text: 'Complete Todo App on Frontend Mentor',
+    completed: false
+  }
+]
 
 </script>
 
@@ -31,13 +66,9 @@ const toggleMode = () => {
   <input class="form__input" type="text" name="todo" id="form--todo">
 </form>
 <ul class="list">
-  <li class="list__item">
-    <div class="todo">
-      <input class="todo__checkbox" type="checkbox" name="" id="">
-      <label class="todo__label" for="">Complete online JavaScript course</label>
-      <img class="todo__delete" src="/images/icon-cross.svg" alt="delete">
-    </div>
-  </li>
+{#each todos as todo (todo.id)}
+  <TodoItem {todo}/>
+{/each}
 </ul>
 </div>
 </main>
