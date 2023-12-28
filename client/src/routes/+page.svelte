@@ -56,17 +56,31 @@
 	>
 		<div class="header">
 			<h1 class="header__logo">todo</h1>
-			<button on:click={toggleMode} class="header__toggle">
+			<button
+				on:click={toggleMode}
+				class="header__toggle"
+			>
 				{#if mode === 'light'}
-					<img src="/images/icon-moon.svg" alt="moon" />
+					<img
+						src="/images/icon-moon.svg"
+						alt="moon"
+					/>
 				{:else}
-					<img src="/images/icon-sun.svg" alt="sun" />
+					<img
+						src="/images/icon-sun.svg"
+						alt="sun"
+					/>
 				{/if}
 			</button>
 		</div>
 		<form class="form">
 			<label for="form--todo"></label>
-			<input class="form__input" type="text" name="todo" id="form--todo" />
+			<input
+				class="form__input"
+				type="text"
+				name="todo"
+				id="form--todo"
+			/>
 		</form>
 		<ul class="list">
 			{#each todos as todo (todo.id)}
@@ -76,10 +90,13 @@
 		</ul>
 	</div>
 	<Filter />
-  <Tooltip />
+	<Tooltip />
 	<Attribution />
 </main>
 
-<style lang="scss" global>
+<style
+	lang="scss"
+	global
+>
 	@import '../styles/global.scss';
 </style>

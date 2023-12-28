@@ -25,20 +25,11 @@ ul {
 	padding: 0;
 }
 
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-li {
-	list-style: none;
-}
-
 .main {
 	display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  min-height: 100vh;
+	grid-template-columns: 1fr;
+	gap: 3rem;
+	min-height: 100vh;
 }
 
 .background {

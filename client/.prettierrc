@@ -1,5 +1,8 @@
 {
 	"useTabs": true,
+	"semi": true,
+	"tabWidth": 2,
+	"singleAttributePerLine": true,
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
