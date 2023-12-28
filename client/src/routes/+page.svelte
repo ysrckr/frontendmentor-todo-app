@@ -34,7 +34,7 @@
 		{
 			id: 4,
 			text: 'Read for 1 hour',
-			completed: false
+			completed: true
 		},
 		{
 			id: 5,
