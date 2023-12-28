@@ -1,11 +1,12 @@
 <script lang="ts">
 	import cn from 'classnames';
 	import type { Todo } from '$lib/types/todo';
-	import TodoItem from '../components/todo.svelte';
+  import {flip} from 'svelte/animate';
 	import Attribution from '../components/attribution.svelte';
 	import Count from '../components/count.svelte';
 	import Filter from '../components/filter.svelte';
 	import Tooltip from '../components/tooltip.svelte';
+
 
 	type Mode = 'light' | 'dark';
 	let mode: Mode = 'light';
@@ -46,6 +47,36 @@
 			completed: false
 		}
 	];
+
+  let hovering: any = false;
+
+  const drop = (event: DragEvent, target: number) => {
+    if(!event.dataTransfer) return
+
+    event.dataTransfer.dropEffect = 'move'; 
+    console.log(event.dataTransfer.getData("text/plain"))
+    const start = parseInt(event.dataTransfer.getData("text/plain"));
+    const newTracklist = todos
+
+    if (start < target) {
+      newTracklist.splice(target + 1, 0, newTracklist[start]);
+      newTracklist.splice(start, 1);
+    } else {
+      newTracklist.splice(target, 0, newTracklist[start]);
+      newTracklist.splice(start + 1, 1);
+    }
+    todos = newTracklist
+    hovering = null
+  }
+
+  const dragstart = (event:DragEvent, i: number) => {
+    if(!event.dataTransfer) return
+
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.dropEffect = 'move';
+    const start = i;
+    event.dataTransfer.setData('text/plain', String(start));
+  }
 </script>
 
 <main class="main">
@@ -85,8 +116,28 @@
       
 		</form>
 		<ul class="list">
-			{#each todos as todo (todo.id)}
-				<TodoItem {todo} />
+			{#each todos as todo, index (todo.id)}
+      <li
+      class="todo"
+      animate:flip
+      draggable={true}
+      on:dragstart={(event) => dragstart(event, index)}
+      on:drop|preventDefault={(event) => drop(event, index)}
+      on:dragover={(event) => event.preventDefault()}
+      on:dragenter={() => (hovering = index)}
+
+
+    >
+      <button class="todo__checkbox"> </button>
+      <p class="todo__text">{todo.text}</p>
+      <button
+        ><img
+          class="todo__delete"
+          src="/images/icon-cross.svg"
+          alt="delete"
+        /></button
+      >
+    </li>
 			{/each}
 			<Count todosLength={todos.length} />
 		</ul>
@@ -101,4 +152,6 @@
 	global
 >
 	@import '../styles/global.scss';
+
+  
 </style>
