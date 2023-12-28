@@ -6,6 +6,8 @@
 	import Count from '../components/count.svelte';
 	import Filter from '../components/filter.svelte';
 	import Tooltip from '../components/tooltip.svelte';
+  import {filter} from '$lib/filter'
+	import type { FilterOption } from '$lib/types/filter';
 
 
 	type Mode = 'light' | 'dark';
@@ -47,6 +49,19 @@
 			completed: false
 		}
 	];
+
+  const filterTodos = (todos: Todo[], option: FilterOption) => {
+    switch (option) {
+      case 'active':
+        return todos.filter(todo => !todo.completed)
+      case 'completed':
+        return todos.filter(todo => todo.completed)
+      default:
+        return todos
+    }
+  }
+
+  
 
   let hovering: any = false;
 

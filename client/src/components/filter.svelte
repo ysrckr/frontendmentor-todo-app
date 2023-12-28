@@ -1,8 +1,7 @@
 <script lang="ts">
+	import cn from 'classnames';
+import {filter} from '$lib/filter'
 	import type { FilterOption } from '$lib/types/filter';
-	import { writable } from 'svelte/store';
-
-	const filter = writable<FilterOption>('all');
 
 	const onFilterClick = (option: FilterOption) => {
 		filter.set(option);
@@ -12,19 +11,25 @@
 <div class="filter">
 	<button
 		type="button"
-		class="filter__button filter__button--active"
+		class={cn('filter__button', {
+			'filter__button--active': $filter === 'all',
+		})}
 		on:click={() => onFilterClick('all')}
 	>
 		All
 	</button>
 	<button
 		type="button"
-		class="filter__button"
+		class={cn('filter__button', {
+			'filter__button--active': $filter === 'active',
+		})}
 		on:click={() => onFilterClick('active')}>Active</button
 	>
 	<button
 		type="button"
-		class="filter__button"
+		class={cn('filter__button', {
+			'filter__button--active': $filter === 'completed',
+		})}
 		on:click={() => onFilterClick('completed')}>Completed</button
 	>
 </div>
