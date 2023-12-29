@@ -61,7 +61,9 @@
     }
   }
 
-  
+	
+
+  $: filteredTodos = filterTodos(todos, $filter)
 
   let hovering: any = false;
 
@@ -69,9 +71,8 @@
     if(!event.dataTransfer) return
 
     event.dataTransfer.dropEffect = 'move'; 
-    console.log(event.dataTransfer.getData("text/plain"))
     const start = parseInt(event.dataTransfer.getData("text/plain"));
-    const newTracklist = todos
+    const newTracklist = filteredTodos
 
     if (start < target) {
       newTracklist.splice(target + 1, 0, newTracklist[start]);
@@ -80,7 +81,7 @@
       newTracklist.splice(target, 0, newTracklist[start]);
       newTracklist.splice(start + 1, 1);
     }
-    todos = newTracklist
+    filteredTodos = newTracklist
     hovering = null
   }
 
@@ -92,6 +93,9 @@
     const start = i;
     event.dataTransfer.setData('text/plain', String(start));
   }
+
+
+	
 </script>
 
 <main class="main">
@@ -131,7 +135,7 @@
       
 		</form>
 		<ul class="list">
-			{#each todos as todo, index (todo.id)}
+			{#each filteredTodos as todo, index (todo.id)}
       <li
       class="todo"
       animate:flip
