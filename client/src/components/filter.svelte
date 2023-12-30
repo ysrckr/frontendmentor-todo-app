@@ -35,8 +35,10 @@ import {filter} from '$lib/filter'
 </div>
 
 <style lang="scss">
+  @use '../styles/partials//colors' as c;
+  
 	.filter {
-		width: clamp(300px, 70%, 500px);
+		width: clamp(calc(300px - 1rem), 70%, 500px);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -57,6 +59,6 @@ import {filter} from '$lib/filter'
 	}
 
 	.filter__button--active {
-		color: #3a7bfd;
+		color: c.$primary
 	}
 </style>

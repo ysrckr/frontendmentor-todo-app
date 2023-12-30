@@ -1,3 +1,5 @@
+@use 'sass:map';
+@use './partials/colors' as c;
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 :global(body) {
@@ -29,6 +31,7 @@ ul {
 	grid-template-columns: 1fr;
 	gap: 3rem;
 	min-height: 100vh;
+	background-color: map.get(c.$light-theme-clrs, 'very-light-grayish-blue');
 }
 
 .background {
@@ -75,6 +78,7 @@ ul {
 
 	&__toggle {
 		cursor: pointer;
+		margin-right: 2rem;
 	}
 }
 
@@ -102,7 +106,7 @@ ul {
 	}
 
 	&__input {
-		width: 60%;
+		width: calc(60% - 0.5rem);
 		padding: 1rem 2.5rem;
 		border: none;
 		border-radius: 0.2rem;
@@ -114,8 +118,8 @@ ul {
 }
 
 .list {
-	width: clamp(300px, 70%, 500px);
-	padding: 1rem 0.5rem;
+	width: clamp(calc(300px - 1rem), 70%, 500px);
+	padding: 0 0.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -125,7 +129,7 @@ ul {
 }
 
 .todo {
-  cursor: move;
+	cursor: move;
 	text-align: left;
 	width: clamp(300px, 70%, 500px);
 	display: grid;
@@ -152,5 +156,21 @@ ul {
 		border: 1px solid rgba(0, 0, 0, 0.2);
 		border-radius: 50%;
 		cursor: pointer;
+
+		&--checked {
+			position: relative;
+			background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 20px 20px;
+
+			&::before {
+				content: url('/images/icon-check.svg');
+				position: absolute;
+				inset: 0;
+				translate: 0 7.5%;
+				z-index: 2;
+			}
+		}
 	}
 }

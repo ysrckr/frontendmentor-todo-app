@@ -141,7 +141,9 @@
 					on:dragover={(event) => event.preventDefault()}
 					on:dragenter={() => (hovering = index)}
 				>
-					<button class="todo__checkbox"> </button>
+					<button class={cn("todo__checkbox", {
+            "todo__checkbox--checked": todo.completed
+          })}> </button>
 					<p class="todo__text">{todo.text}</p>
 					<button
 						><img
