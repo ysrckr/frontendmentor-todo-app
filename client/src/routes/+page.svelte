@@ -88,12 +88,18 @@
 
 <main class="main">
 	<div
+		data-testid="background"
 		class={cn('background', {
 			'background--dark': $mode === 'dark',
 		})}
 	>
 		<div class="header">
-			<h1 class="header__logo">todo</h1>
+			<h1
+				data-testid="title"
+				class="header__logo"
+			>
+				todo
+			</h1>
 			<button
 				on:click={toggleMode}
 				class="header__toggle"
