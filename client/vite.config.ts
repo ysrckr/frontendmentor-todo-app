@@ -7,12 +7,11 @@ export default defineConfig({
 	server: {
 		port: 3000,
 		hmr: {
-			port: 443
+			port: 443,
 		},
-    open: true,
-    
+		open: true,
 	},
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+	},
 });
