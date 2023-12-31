@@ -32,13 +32,17 @@ ul {
 .main {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 3rem;
 	min-height: 100vh;
+	gap: 2rem;
 	background-color: map.get(c.$light-theme-clrs, 'very-light-grayish-blue');
 	transition: all 100ms ease-in-out;
 
 	&--dark {
 		background-color: map.get(c.$dark-theme-clrs, 'very-dark-blue');
+	}
+
+	@include m.desktop {
+		gap: 0;
 	}
 }
 
@@ -203,12 +207,23 @@ ul {
 	}
 
 	&__checkbox {
+		position: relative;
 		width: 20px;
 		height: 20px;
 		border: 1px solid rgba(0, 0, 0, 0.2);
 		border-radius: 50%;
 		cursor: pointer;
 		transition: all 100ms ease-in-out;
+
+		&:hover {
+			background: transparent;
+			background-image: linear-gradient(90deg, white, white),
+				linear-gradient(90deg, hsl(289, 65%, 64%), hsl(226, 78%, 67%));
+			background-clip: padding-box, border-box;
+			background-origin: border-box;
+			border: 1px solid transparent;
+			border-radius: 50%;
+		}
 
 		&--checked {
 			position: relative;
@@ -228,6 +243,20 @@ ul {
 
 		&--dark {
 			border: 1px solid map.get(c.$light-theme-clrs, 'dark-grayish-blue');
+
+			&:hover {
+				background: transparent;
+				background-image: linear-gradient(
+						90deg,
+						map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue'),
+						map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue')
+					),
+					linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+				background-clip: padding-box, border-box;
+				background-origin: border-box;
+				border: 1px solid transparent;
+				border-radius: 50%;
+			}
 		}
 	}
 }
