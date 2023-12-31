@@ -7,10 +7,14 @@
 </p>
 
 <style lang="scss">
-  .tooltip-text {
-    text-align: center;
-    font-size: 0.8rem;
-    color: #000;
-    margin: auto;
-  }
+	@use 'sass:map';
+	@use '../styles/partials/colors' as c;
+
+	.tooltip-text {
+		text-align: center;
+		font-size: 0.8rem;
+		font-family: 'Josefin Sans', sans-serif;
+		color: map.get(c.$light-theme-clrs, 'dark-grayish-blue');
+		margin: auto;
+	}
 </style>

@@ -35,6 +35,7 @@ import {filter} from '$lib/filter'
 </div>
 
 <style lang="scss">
+  @use 'sass:map';
   @use '../styles/partials//colors' as c;
   
 	.filter {
@@ -54,7 +55,7 @@ import {filter} from '$lib/filter'
 		border: none;
 		cursor: pointer;
 		font-size: 0.8rem;
-		color: #000;
+		color: map.get(c.$light-theme-clrs, 'dark-grayish-blue');
 		font-weight: 700;
 	}
 
