@@ -150,6 +150,7 @@
 							class="todo__delete"
 							src="/images/icon-cross.svg"
 							alt="delete"
+              width="15px"
 						/></button
 					>
 				</li>

@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use './partials/colors' as c;
+@use './partials/mixins' as m;
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 :global(body) {
@@ -10,14 +11,16 @@
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 18px;
 	font-weight: 400;
+	color: map-get($map: c.$light-theme-clrs, $key: 'very-dark-grayish-blue');
 }
 
-button {
+:global(button) {
 	border: none;
 	outline: none;
 	cursor: pointer;
 	background-color: transparent;
 	display: inline-block;
+	font-family: 'Josefin Sans', sans-serif;
 }
 
 ul {
@@ -87,6 +90,7 @@ ul {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
+	@include m.textColor('light');
 
 	&__label {
 		position: relative;
@@ -99,8 +103,8 @@ ul {
 			height: 1rem;
 			transform: translate(50%, -50%);
 			border-radius: 50%;
-			border: 1px solid #000;
-			color: #000;
+			border: 1px solid map.get(c.$light-theme-clrs, 'dark-grayish-blue');
+
 			z-index: 2;
 		}
 	}
@@ -112,7 +116,7 @@ ul {
 		border-radius: 0.2rem;
 
 		&::placeholder {
-			color: #000;
+			color: map.get(c.$light-theme-clrs, 'dark-grayish-blue');
 		}
 	}
 }
@@ -126,6 +130,7 @@ ul {
 	border-radius: 0.5rem;
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	@include m.textColor('light');
 }
 
 .todo {
@@ -135,18 +140,17 @@ ul {
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
 	place-items: center;
+	color: inherit;
 
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
 	&__text {
 		text-align: left;
 		font-size: 1rem;
-		color: #000;
 		justify-self: left;
 	}
 
 	&__delete {
-		color: #000;
 		font-weight: 700;
 	}
 
@@ -168,7 +172,7 @@ ul {
 				content: url('/images/icon-check.svg');
 				position: absolute;
 				inset: 0;
-				translate: 0 7.5%;
+				translate: 0 20%;
 				z-index: 2;
 			}
 		}
