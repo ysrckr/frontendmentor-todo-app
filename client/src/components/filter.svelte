@@ -1,14 +1,19 @@
 <script lang="ts">
 	import cn from 'classnames';
-import {filter} from '$lib/filter'
+	import { filter } from '$lib/filter';
 	import type { FilterOption } from '$lib/types/filter';
+	import { mode } from '$lib/mode';
 
 	const onFilterClick = (option: FilterOption) => {
 		filter.set(option);
 	};
 </script>
 
-<div class="filter">
+<div
+	class={cn('filter', {
+		'filter--dark': $mode === 'dark',
+	})}
+>
 	<button
 		type="button"
 		class={cn('filter__button', {
@@ -35,9 +40,9 @@ import {filter} from '$lib/filter'
 </div>
 
 <style lang="scss">
-  @use 'sass:map';
-  @use '../styles/partials//colors' as c;
-  
+	@use 'sass:map';
+	@use '../styles/partials//colors' as c;
+
 	.filter {
 		width: clamp(calc(300px - 1rem), 70%, 500px);
 		display: flex;
@@ -47,6 +52,12 @@ import {filter} from '$lib/filter'
 		margin: auto;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		border-radius: 0.5rem;
+    transition: all 100ms ease-in-out;
+
+		&--dark {
+			background-color: map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue');
+      box-shadow: 0 0 10px rgb(21, 20, 20);
+		}
 	}
 
 	.filter__button {
@@ -60,6 +71,6 @@ import {filter} from '$lib/filter'
 	}
 
 	.filter__button--active {
-		color: c.$primary
+		color: c.$primary;
 	}
 </style>

@@ -35,6 +35,7 @@ ul {
 	gap: 3rem;
 	min-height: 100vh;
 	background-color: map.get(c.$light-theme-clrs, 'very-light-grayish-blue');
+	transition: all 100ms ease-in-out;
 
 	&--dark {
 		background-color: map.get(c.$dark-theme-clrs, 'very-dark-blue');
@@ -73,11 +74,13 @@ ul {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	transition: all 100ms ease-in-out;
 
 	&__logo {
 		color: #fff;
 		text-transform: uppercase;
 		margin-left: 2rem;
+		transition: all 100ms ease-in-out;
 		&--dark {
 			color: #000;
 		}
@@ -95,6 +98,7 @@ ul {
 	align-items: center;
 	width: 100%;
 	@include m.textColor('light');
+	transition: all 100ms ease-in-out;
 
 	&__label {
 		position: relative;
@@ -118,14 +122,19 @@ ul {
 		padding: 1rem 2.5rem;
 		border: none;
 		border-radius: 0.2rem;
+		transition: all 100ms ease-in-out;
+
+		&:focus,
+		&:focus-visible,
+		&:focus-within {
+			outline: c.$primary 0.1rem solid;
+		}
 
 		&::placeholder {
 			color: map.get(c.$light-theme-clrs, 'dark-grayish-blue');
 		}
 
-		&--dark {
-			background-color: map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue');
-		}
+		@include m.dark-mode;
 	}
 }
 
@@ -138,6 +147,7 @@ ul {
 	border-radius: 0.5rem;
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	transition: all 100ms ease-in-out;
 	@include m.textColor('light');
 
 	@include m.dark-mode;
@@ -151,6 +161,8 @@ ul {
 	grid-template-columns: 1fr 3fr 1fr;
 	place-items: center;
 	color: inherit;
+
+	transition: all 100ms ease-in-out;
 
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -182,6 +194,7 @@ ul {
 		border: 1px solid rgba(0, 0, 0, 0.2);
 		border-radius: 50%;
 		cursor: pointer;
+		transition: all 100ms ease-in-out;
 
 		&--checked {
 			position: relative;
