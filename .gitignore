@@ -174,3 +174,4 @@ dist
 !.env.vault
 .nx/installation
 .nx/cache
+nx-cloud.env
