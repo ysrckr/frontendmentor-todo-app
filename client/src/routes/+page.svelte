@@ -86,7 +86,11 @@
 	};
 </script>
 
-<main class="main">
+<main
+	class={cn('main', {
+		'main--dark': $mode === 'dark',
+	})}
+>
 	<div
 		data-testid="background"
 		class={cn('background', {
@@ -123,14 +127,20 @@
 				for="form--todo"
 			></label>
 			<input
-				class="form__input"
+				class={cn('form__input', {
+					'form__input--dark': $mode === 'dark',
+				})}
 				type="text"
 				name="todo"
 				id="form--todo"
 				placeholder="Create a new todo..."
 			/>
 		</form>
-		<ul class="list">
+		<ul
+			class={cn('list', {
+				'list--dark': $mode === 'dark',
+			})}
+		>
 			{#each filteredTodos as todo, index (todo.id)}
 				<li
 					class="todo"
@@ -141,18 +151,19 @@
 					on:dragover={(event) => event.preventDefault()}
 					on:dragenter={() => (hovering = index)}
 				>
-					<button class={cn("todo__checkbox", {
-            "todo__checkbox--checked": todo.completed
-          })}> </button>
-					<p class="todo__text">{todo.text}</p>
 					<button
-						><img
-							class="todo__delete"
-							src="/images/icon-cross.svg"
-							alt="delete"
-              width="15px"
-						/></button
+						class={cn('todo__checkbox', {
+							'todo__checkbox--checked': todo.completed,
+              'todo__checkbox--dark': $mode === 'dark'
+						})}
 					>
+					</button>
+					<p class="todo__text">{todo.text}</p>
+					<button class={
+            cn("todo__delete", {
+              "todo__delete--dark": $mode === 'dark'
+            })
+          }></button>
 				</li>
 			{/each}
 			<Count todosLength={todos.length} />

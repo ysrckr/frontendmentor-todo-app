@@ -14,3 +14,10 @@
 		color: map-get($map: c.$dark-theme-clrs, $key: 'very-very-dark-grayish-blue');
 	}
 }
+
+@mixin dark-mode {
+	&--dark {
+		background-color: map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue');
+		color: map.get(c.$dark-theme-clrs, 'light-grayish-blue');
+	}
+}
