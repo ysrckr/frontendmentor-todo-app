@@ -44,7 +44,7 @@
 	@use '../styles/partials//colors' as c;
 
 	.filter {
-		width: clamp(calc(300px - 1rem), 70%, 500px);
+		width: clamp(calc(300px - 1rem), 50%, 796px);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
