@@ -1,6 +1,25 @@
-version: '3.9'
+version: "3.9"
 
+name: todoapp
 services:
   db:
-    image: todoapp
-    
+    container_name: postgres_alpine
+    hostname: postgres
+    image: postgres:16.1-alpine3.19
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: todoapp
+    volumes:
+      - todoapp:/var/lib/postgresql/data
+    networks:
+      - todo_connection
+
+volumes:
+  todoapp:
+
+networks:
+  todo_connection:
