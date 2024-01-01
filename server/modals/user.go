@@ -1,6 +1,6 @@
 package modals
 
 type User struct {
-  Id int      `db:"id"`
-  Ip string    `db:"ip"`
+  Id int      `db:"id" json:"id"`
+  Ip string    `db:"ip" json:"ip"`
 }
