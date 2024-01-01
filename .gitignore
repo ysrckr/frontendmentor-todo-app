@@ -175,3 +175,4 @@ dist
 .nx/installation
 .nx/cache
 nx-cloud.env
+server/tmp/
