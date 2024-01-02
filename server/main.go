@@ -15,7 +15,6 @@ func main() {
 
 	apiRouter := chi.NewRouter()
 
-	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000"},
