@@ -3,8 +3,11 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
-# pre-push:
-#   commands:
+pre-push:
+  commands:
+      test-api:
+        tag: testing api
+        run: make test
 #     packages-audit:
 #       tags: frontend security
 #       run: yarn audit
