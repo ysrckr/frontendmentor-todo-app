@@ -1,18 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+
+	_ "github.com/lib/pq"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	"github.com/ysrckr/frontendmentor-todo-app/controllers"
+	"github.com/ysrckr/frontendmentor-todo-app/database"
 )
 
 const PORT = "8000"
 
 func main() {
+
+	database.DB.Initialise("postgres", "admin", "admin", "todoapp")
 
 	r := chi.NewRouter()
 
@@ -31,12 +36,7 @@ func main() {
 	}))
 
 	apiRouter.Route("/todos", func(r chi.Router) {
-		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-
-			fmt.Fprintf(w, "hello todos")
-
-		})
-
+		r.Get("/", controllers.GetAllTodos)
 	})
 
 	r.Mount("/api/v1", apiRouter)
