@@ -9,21 +9,22 @@ import (
 
 func SelectAllTodos() []modals.Todo {
 
-	rows, err := database.DB.Db.Queryx("SELECT * FROM todos")
+	todos := []modals.Todo{}
+
+	err := database.DB.Db.Select(&todos, "SELECT * FROM todos")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	var todos []modals.Todo
+	return todos
+}
 
-	for rows.Next() {
-		var todo modals.Todo
-		err = rows.StructScan(&todo)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		todos = append(todos, todo)
+func SelectAllTodosWithCompletedStatus(status bool) []modals.Todo {
+	todos := []modals.Todo{}
 
+	err := database.DB.Db.Select(&todos, "SELECT * FROM todos where completed=$1", status)
+	if err != nil {
+		log.Fatalln(err)
 	}
 
 	return todos
