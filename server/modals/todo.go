@@ -8,6 +8,6 @@ type Todo struct {
 	Id        int    `db:"id" json:"id"`
 	Text      string `db:"text" json:"text"`
 	Completed bool   `db:"completed" json:"completed"`
-	CreatedAt string `db:"created_at"`
-	UpdatedAt string `db:"updated_at"`
+	CreatedAt string `db:"created_at" json:"created_at"`
+	UpdatedAt string `db:"updated_at" json:"updated_at"`
 }

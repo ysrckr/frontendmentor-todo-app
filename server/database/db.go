@@ -21,8 +21,6 @@ func (d *Database) Initialise(dbType, userName, password, dbName string) {
 		log.Fatalln(d.Error)
 	}
 
-	defer d.Db.Close()
-
 	d.Tx = d.Db.MustBegin()
 }
 
