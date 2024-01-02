@@ -9,6 +9,8 @@ import (
 	"github.com/go-chi/cors"
 )
 
+const PORT = "8000"
+
 func main() {
 
 	r := chi.NewRouter()
@@ -38,5 +40,5 @@ func main() {
 
 	r.Mount("/api/v1", apiRouter)
 
-	http.ListenAndServe(":8000", r)
+	http.ListenAndServe(":"+PORT, r)
 }
