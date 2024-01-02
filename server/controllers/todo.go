@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/ysrckr/frontendmentor-todo-app/services"
@@ -13,7 +12,7 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 
 	todosJson, err := json.Marshal(todos)
 	if err != nil {
-		fmt.Fprintf(w, "Parse error")
+		http.Error(w, "JSON Parse Error", http.StatusInternalServerError)
 	}
 
 	w.Header().Add("Content-Type", "application/json")
