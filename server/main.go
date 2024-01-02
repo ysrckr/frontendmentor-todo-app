@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -40,5 +41,6 @@ func main() {
 
 	r.Mount("/api/v1", apiRouter)
 
-	http.ListenAndServe(":"+PORT, r)
+	log.Printf("Listening on http://localhost:%s", PORT)
+	log.Fatal(http.ListenAndServe(":"+PORT, r))
 }
