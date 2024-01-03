@@ -10,11 +10,15 @@ import (
 )
 
 func main() {
-	godotenv.Load("../.env")
+  godotenv.Load("../.env")
 
-	PORT := os.Getenv("API_PORT")
+  PORT := os.Getenv("API_PORT")
+  DB := os.Getenv("DB")
+  DBUSER := os.Getenv("DB_USER")
+  DBPASSWORD := os.Getenv("DB_PASSWORD")
+  DBNAME := os.Getenv("DB_NAME")
 
-	database.DB.Initialise("postgres", "admin", "admin", "todoapp")
+  database.DB.Initialise(DB, DBUSER, DBPASSWORD, DBNAME)
 
-	InitialiseServer(PORT)
+  InitialiseServer(PORT)
 }
