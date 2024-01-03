@@ -10,7 +10,7 @@ import (
 	"github.com/ysrckr/frontendmentor-todo-app/controllers"
 )
 
-func InitialiseServer(PORT string) {
+func InitialiseServer(PORT string, AllowedOrigins, AllowMethods []string) {
 	r := chi.NewRouter()
 
 	apiRouter := chi.NewRouter()
@@ -18,10 +18,10 @@ func InitialiseServer(PORT string) {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Heartbeat("/"))
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedOrigins: AllowedOrigins,
 		// AllowedOrigins: []string{"https://*", "http://*"},
 		// AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
-		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"},
+		AllowedMethods:   AllowMethods,
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: false,

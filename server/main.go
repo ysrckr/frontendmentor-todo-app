@@ -1,24 +1,19 @@
 package main
 
 import (
-	"os"
-
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
 	"github.com/ysrckr/frontendmentor-todo-app/database"
 )
 
+var allowedOrigins = []string{"http://localhost:3000"}
+var allowedMethods = []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"}
+
 func main() {
-  godotenv.Load("../.env")
 
-  PORT := os.Getenv("API_PORT")
-  DB := os.Getenv("DB")
-  DBUSER := os.Getenv("DB_USER")
-  DBPASSWORD := os.Getenv("DB_PASSWORD")
-  DBNAME := os.Getenv("DB_NAME")
+	Env.SetEnviromentVars()
 
-  database.DB.Initialise(DB, DBUSER, DBPASSWORD, DBNAME)
+	database.DB.Initialise(Env.DB, Env.DBUSER, Env.DBPASSWORD, Env.DBNAME)
 
-  InitialiseServer(PORT)
+	InitialiseServer(Env.PORT, allowedOrigins, allowedMethods)
 }
