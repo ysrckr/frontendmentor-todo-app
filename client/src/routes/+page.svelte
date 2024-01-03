@@ -11,17 +11,30 @@
 	import type { FilterOption } from '$lib/types/filter';
 	import { onMount } from 'svelte';
 
-  export let todos: Todo[] = [
-		
-	];
+	const todosEndPoint = import.meta.env.VITE_API + '/todos';
 
-  onMount(async () => {
-    const response = await fetch(import.meta.env.VITE_API + "/todos")
-    const data = await response.json()
-    todos = [...data]
-  })
+	const controller = new AbortController();
+	const signal = controller.signal;
 
-	
+	export let todos: Todo[] = [];
+
+	const getAllTodos = async () => {
+		const response = await fetch(todosEndPoint, { signal });
+		const data = await response.json();
+		todos = [...data];
+	};
+
+	onMount(getAllTodos);
+
+	const deleteTodo = async (id: number) => {
+		const response = await fetch(todosEndPoint + `/${id}`, {
+			method: 'DELETE',
+			signal,
+		});
+		if (response.ok) {
+			todos = todos.filter((todo) => todo.id !== id);
+		}
+	};
 
 	const filterTodos = (todos: Todo[], option: FilterOption) => {
 		switch (option) {
@@ -134,18 +147,23 @@
 					<button
 						class={cn('todo__checkbox', {
 							'todo__checkbox--checked': todo.completed,
-              'todo__checkbox--dark': $mode === 'dark'
+							'todo__checkbox--dark': $mode === 'dark',
 						})}
 					>
 					</button>
-					<p class={cn("todo__text", {
-            "todo__text--completed": todo.completed
-          })}>{todo.text}</p>
-					<button class={
-            cn("todo__delete", {
-              "todo__delete--dark": $mode === 'dark'
-            })
-          }></button>
+					<p
+						class={cn('todo__text', {
+							'todo__text--completed': todo.completed,
+						})}
+					>
+						{todo.text}
+					</p>
+					<button
+						class={cn('todo__delete', {
+							'todo__delete--dark': $mode === 'dark',
+						})}
+						on:click={async () => await deleteTodo(todo.id)}
+					></button>
 				</li>
 			{/each}
 			<Count todosLength={todos.length} />
