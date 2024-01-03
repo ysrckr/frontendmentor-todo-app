@@ -76,7 +76,7 @@ func CreateATodo(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json")
 
-	fmt.Fprintf(w, "Id:%d", id)
-
 	w.WriteHeader(http.StatusCreated)
+
+	fmt.Fprintf(w, "Id:%d", id)
 }
