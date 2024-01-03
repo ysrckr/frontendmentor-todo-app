@@ -22,7 +22,7 @@ func SelectAllTodos() ([]modals.Todo, error) {
 
 	ctx, cancel := createTimedContext(200)
 
-  defer cancel()
+	defer cancel()
 
 	err := database.DB.Db.SelectContext(ctx, &todos, "SELECT * FROM todos")
 	if err != nil {
@@ -38,7 +38,7 @@ func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 
 	ctx, cancel := createTimedContext(200)
 
-  defer cancel()
+	defer cancel()
 
 	err := database.DB.Db.SelectContext(ctx, &todos, "SELECT * FROM todos where completed=$1", status)
 	if err != nil {
@@ -52,7 +52,7 @@ func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 func InsertATodo(todo modals.Todo) (int, error) {
 	ctx, cancel := createTimedContext(200)
 
-  defer cancel()
+	defer cancel()
 
 	todoQuery := `INSERT INTO todos (text, completed) VALUES ($1, $2) RETURNING id`
 
@@ -69,7 +69,7 @@ func InsertATodo(todo modals.Todo) (int, error) {
 func UpdateATodoStatusWithOpposite(id int) (int, error) {
 	ctx, cancel := createTimedContext(200)
 
-  defer cancel()
+	defer cancel()
 
 	todoQuery := `UPDATE todos SET completed = NOT completed WHERE id = $1 RETURNING id`
 
@@ -82,4 +82,16 @@ func UpdateATodoStatusWithOpposite(id int) (int, error) {
 
 	return lastUpdatedId, nil
 
+}
+
+func RemoveATodo(id int) error {
+	ctx, cancel := createTimedContext(200)
+
+	defer cancel()
+
+	todoQuery := `DELETE FROM todos WHERE id = $1`
+
+	err := database.DB.Db.QueryRowContext(ctx, todoQuery, id).Err()
+
+	return err
 }

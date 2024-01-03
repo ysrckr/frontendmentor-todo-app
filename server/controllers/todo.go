@@ -103,3 +103,23 @@ func ToggleTodoStatus(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "Id:%d", result)
 }
+
+func DeleteATodo(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	if id := chi.URLParam(r, "id"); id != "" {
+		idx, err := strconv.ParseInt(id, 10, 32)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+		}
+		err = services.RemoveATodo(int(idx))
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+		}
+
+	}
+
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+	}
+}
