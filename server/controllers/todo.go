@@ -6,12 +6,13 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/ysrckr/frontendmentor-todo-app/modals"
 	"github.com/ysrckr/frontendmentor-todo-app/services"
 )
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	completed := r.URL.Query().Get("completed")
-  
+
 	var err error
 	var status bool
 
@@ -57,4 +58,17 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	w.Write([]byte(todosJson))
+}
+
+func CreateATodo(w http.ResponseWriter, r *http.Request) {
+	body := r.Body
+	var todo modals.Todo
+
+	err := json.NewDecoder(body).Decode(&todo)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+	}
+
+	fmt.Println(todo)
+
 }
