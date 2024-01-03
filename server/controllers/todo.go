@@ -69,6 +69,14 @@ func CreateATodo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
 	}
 
-	fmt.Println(todo)
+	id, err := services.InsertATodo(todo)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+	}
 
+	w.Header().Add("Content-Type", "application/json")
+
+	fmt.Fprintf(w, "Id:%d", id)
+
+	w.WriteHeader(http.StatusCreated)
 }

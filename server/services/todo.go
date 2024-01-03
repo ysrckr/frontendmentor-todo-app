@@ -41,3 +41,20 @@ func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 
 	return todos, err
 }
+
+func InsertATodo(todo modals.Todo) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*200))
+	defer cancel()
+
+	todoQuery := `INSERT INTO todos (text, completed) VALUES ($1, $2) RETURNING id`
+
+	lastInsertedId := 0
+
+	err := database.DB.Db.QueryRowContext(ctx, todoQuery, todo.Text, todo.Completed).Scan(&lastInsertedId)
+	if err != nil {
+		return 0, err
+	}
+
+  
+	return lastInsertedId, nil
+}
