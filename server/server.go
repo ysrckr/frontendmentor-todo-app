@@ -31,6 +31,7 @@ func InitialiseServer(PORT string, AllowedOrigins, AllowMethods []string) {
 	apiRouter.Route("/todos", func(r chi.Router) {
 		r.Get("/", controllers.GetAllTodos)
 		r.Post("/", controllers.CreateATodo)
+		r.Patch("/{id}", controllers.ToggleTodoStatus)
 	})
 
 	r.Mount("/api/v1", apiRouter)

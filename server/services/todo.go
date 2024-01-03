@@ -9,13 +9,20 @@ import (
 	"github.com/ysrckr/frontendmentor-todo-app/modals"
 )
 
+func createTimedContext(duration time.Duration) (context.Context, context.CancelFunc) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*duration))
+
+	return ctx, cancel
+}
+
 func SelectAllTodos() ([]modals.Todo, error) {
 
 	todos := []modals.Todo{}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*200))
+	ctx, cancel := createTimedContext(200)
 
-	defer cancel()
+  defer cancel()
 
 	err := database.DB.Db.SelectContext(ctx, &todos, "SELECT * FROM todos")
 	if err != nil {
@@ -29,9 +36,9 @@ func SelectAllTodos() ([]modals.Todo, error) {
 func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 	todos := []modals.Todo{}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*200))
+	ctx, cancel := createTimedContext(200)
 
-	defer cancel()
+  defer cancel()
 
 	err := database.DB.Db.SelectContext(ctx, &todos, "SELECT * FROM todos where completed=$1", status)
 	if err != nil {
@@ -43,8 +50,9 @@ func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 }
 
 func InsertATodo(todo modals.Todo) (int, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*200))
-	defer cancel()
+	ctx, cancel := createTimedContext(200)
+
+  defer cancel()
 
 	todoQuery := `INSERT INTO todos (text, completed) VALUES ($1, $2) RETURNING id`
 
@@ -55,6 +63,23 @@ func InsertATodo(todo modals.Todo) (int, error) {
 		return 0, err
 	}
 
-  
 	return lastInsertedId, nil
+}
+
+func UpdateATodoStatusWithOpposite(id int) (int, error) {
+	ctx, cancel := createTimedContext(200)
+
+  defer cancel()
+
+	todoQuery := `UPDATE todos SET completed = NOT completed WHERE id = $1 RETURNING id`
+
+	lastUpdatedId := 0
+
+	err := database.DB.Db.QueryRowContext(ctx, todoQuery, id).Scan(&lastUpdatedId)
+	if err != nil {
+		return 0, err
+	}
+
+	return lastUpdatedId, nil
+
 }

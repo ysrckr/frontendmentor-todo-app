@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/ysrckr/frontendmentor-todo-app/modals"
 	"github.com/ysrckr/frontendmentor-todo-app/services"
 )
@@ -79,4 +80,26 @@ func CreateATodo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 
 	fmt.Fprintf(w, "Id:%d", id)
+}
+
+func ToggleTodoStatus(w http.ResponseWriter, r *http.Request) {
+	var result int
+	var err error
+	if id := chi.URLParam(r, "id"); id != "" {
+		idx, err := strconv.ParseInt(id, 10, 32)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+		}
+		result, err = services.UpdateATodoStatusWithOpposite(int(idx))
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+		}
+
+	}
+
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+	}
+
+	fmt.Fprintf(w, "Id:%d", result)
 }
