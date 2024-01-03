@@ -2,25 +2,36 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/ysrckr/frontendmentor-todo-app/services"
 )
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	completed := r.URL.Query().Get("completed")
+  
+	var err error
 	var status bool
-	if completed != "" && completed == "true" || completed == "false" {
 
-		if completed == "true" {
-			status = true
+	if completed != "" {
+
+		if completed != "true" && completed != "false" {
+			http.Error(w, "Wrong Query", http.StatusBadRequest)
+			return
 		}
 
-		if completed == "false" {
-			status = false
+		status, err = strconv.ParseBool(completed)
+		if err != nil {
+			http.Error(w, "Wrong Query", http.StatusBadRequest)
+			return
 		}
-    
-		todos := services.SelectAllTodosWithCompletedStatus(status)
+
+		todos, err := services.SelectAllTodosWithCompletedStatus(status)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+		}
 
 		todosJson, err := json.Marshal(todos)
 		if err != nil {
@@ -33,7 +44,10 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	todos := services.SelectAllTodos()
+	todos, err := services.SelectAllTodos()
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error:%s", err), http.StatusInternalServerError)
+	}
 
 	todosJson, err := json.Marshal(todos)
 	if err != nil {
