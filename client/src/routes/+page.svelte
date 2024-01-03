@@ -9,39 +9,19 @@
 	import { filter } from '$lib/filter';
 	import { mode, toggleMode } from '$lib/mode';
 	import type { FilterOption } from '$lib/types/filter';
+	import { onMount } from 'svelte';
 
-	export let todos: Todo[] = [
-		{
-			id: 1,
-			text: 'Complete online JavaScript course',
-			completed: true,
-		},
-		{
-			id: 2,
-			text: 'Jog around the park 3x',
-			completed: false,
-		},
-		{
-			id: 3,
-			text: '10 minutes meditation',
-			completed: false,
-		},
-		{
-			id: 4,
-			text: 'Read for 1 hour',
-			completed: true,
-		},
-		{
-			id: 5,
-			text: 'Pick up groceries',
-			completed: false,
-		},
-		{
-			id: 6,
-			text: 'Complete Todo App on Frontend Mentor',
-			completed: false,
-		},
+  export let todos: Todo[] = [
+		
 	];
+
+  onMount(async () => {
+    const response = await fetch(import.meta.env.VITE_API + "/todos")
+    const data = await response.json()
+    todos = [...data]
+  })
+
+	
 
 	const filterTodos = (todos: Todo[], option: FilterOption) => {
 		switch (option) {
@@ -158,7 +138,9 @@
 						})}
 					>
 					</button>
-					<p class="todo__text">{todo.text}</p>
+					<p class={cn("todo__text", {
+            "todo__text--completed": todo.completed
+          })}>{todo.text}</p>
 					<button class={
             cn("todo__delete", {
               "todo__delete--dark": $mode === 'dark'

@@ -9,9 +9,9 @@
 
 @mixin textColor($mode) {
 	@if $mode == 'light' {
-		color: map-get($map: c.$light-theme-clrs, $key: 'very-dark-grayish-blue');
+		color: map.get($map: c.$light-theme-clrs, $key: 'very-dark-grayish-blue');
 	} @else {
-		color: map-get($map: c.$dark-theme-clrs, $key: 'very-very-dark-grayish-blue');
+		color: map.get($map: c.$dark-theme-clrs, $key: 'very-very-dark-grayish-blue');
 	}
 }
 
