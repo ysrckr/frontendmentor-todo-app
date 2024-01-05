@@ -176,3 +176,4 @@ dist
 .nx/cache
 nx-cloud.env
 server/tmp/
+client/.netlify
