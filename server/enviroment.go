@@ -25,7 +25,7 @@ func (e *Enviroment) SetEnviromentVars() {
 	}
 
 	e.PORT = os.Getenv("API_PORT")
-	e.DB = os.Getenv("DB")
+	e.DB = os.Getenv("DB_DRIVER")
 	e.DBUSER = os.Getenv("DB_USER")
 	e.DBPASSWORD = os.Getenv("DB_PASSWORD")
 	e.DBNAME = os.Getenv("DB_NAME")
