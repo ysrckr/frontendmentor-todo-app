@@ -16,7 +16,7 @@ func InitialiseServer(PORT string, AllowedOrigins, AllowMethods []string) {
 	apiRouter := chi.NewRouter()
 
 	r.Use(middleware.Logger)
-	r.Use(middleware.Heartbeat("/"))
+	r.Use(middleware.Heartbeat("/health-check"))
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: AllowedOrigins,
 		// AllowedOrigins: []string{"https://*", "http://*"},
