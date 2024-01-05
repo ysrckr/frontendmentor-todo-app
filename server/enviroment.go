@@ -9,18 +9,18 @@ import (
 )
 
 type Enviroment struct {
-	Mode       string
-	PORT       string
-	DB         string
-	DBUSER     string
-	DBPASSWORD string
-	DBNAME     string
-  ALLOWEDORIGINS []string
+	Mode           string
+	PORT           string
+	DB             string
+	DBUSER         string
+	DBPASSWORD     string
+	DBNAME         string
+	ALLOWEDORIGINS []string
 }
 
 func (e *Enviroment) SetEnviromentVars() {
 	if e.Mode == "development" {
-		err := godotenv.Load("../.env")
+		err := godotenv.Load()
 		if err != nil {
 			log.Println(err)
 		}
@@ -36,7 +36,7 @@ func (e *Enviroment) SetEnviromentVars() {
 	e.DBUSER = os.Getenv("DB_USER")
 	e.DBPASSWORD = os.Getenv("DB_PASSWORD")
 	e.DBNAME = os.Getenv("DB_NAME")
-  e.ALLOWEDORIGINS = strings.Split(os.Getenv("ALLOWED_ORIGINS"), ";")
+	e.ALLOWEDORIGINS = strings.Split(os.Getenv("ALLOWED_ORIGINS"), ";")
 }
 
 func (e *Enviroment) SetEnviromentMode(mode string) {
