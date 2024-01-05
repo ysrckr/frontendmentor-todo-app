@@ -13,7 +13,7 @@
 
 	let formData = '';
 
-	const todosEndPoint = import.meta.env.VITE_API + '/todos';
+	const todosEndPoint = 'https://frontendmentor-todo-app.onrender.com' + '/todos';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -73,7 +73,6 @@
 				return todos;
 		}
 	};
-  
 
 	const onSubmit = async () => {
 		const todo = {
