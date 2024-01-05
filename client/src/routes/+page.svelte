@@ -11,6 +11,8 @@
 	import type { FilterOption } from '$lib/types/filter';
 	import { onMount } from 'svelte';
 
+	let formData = '';
+
 	const todosEndPoint = import.meta.env.VITE_API + '/todos';
 
 	const controller = new AbortController();
@@ -18,32 +20,46 @@
 
 	export let todos: Todo[] = [];
 
+	let errorMessage;
+
 	const getAllTodos = async () => {
-		const response = await fetch(todosEndPoint, { signal });
-		const data = await response.json();
-		todos = [...data];
+		try {
+			const response = await fetch(todosEndPoint, { signal });
+			const data = await response.json();
+			todos = [...data];
+		} catch (error) {
+			errorMessage = error;
+		}
 	};
 
 	onMount(getAllTodos);
 
 	const deleteTodo = async (id: number) => {
-		const response = await fetch(todosEndPoint + `/${id}`, {
-			method: 'DELETE',
-			signal,
-		});
-		if (response.ok) {
-			getAllTodos();
+		try {
+			const response = await fetch(todosEndPoint + `/${id}`, {
+				method: 'DELETE',
+				signal,
+			});
+			if (response.ok) {
+				getAllTodos();
+			}
+		} catch (error) {
+			errorMessage = error;
 		}
 	};
 
 	const toggleTodoStatus = async (id: number) => {
-		const response = await fetch(todosEndPoint + `/${id}`, {
-			method: 'PATCH',
-			signal,
-		});
+		try {
+			const response = await fetch(todosEndPoint + `/${id}`, {
+				method: 'PATCH',
+				signal,
+			});
 
-		if (response.ok) {
-			getAllTodos();
+			if (response.ok) {
+				getAllTodos();
+			}
+		} catch (error) {
+			errorMessage = error;
 		}
 	};
 
@@ -55,6 +71,28 @@
 				return todos.filter((todo) => todo.completed);
 			default:
 				return todos;
+		}
+	};
+
+	const onSubmit = async () => {
+		const todo = {
+			text: formData,
+			completed: false,
+		};
+
+		try {
+			const response = await fetch(todosEndPoint, {
+				method: 'POST',
+				body: JSON.stringify(todo),
+				signal,
+			});
+
+			if (response.ok) {
+				formData = '';
+				getAllTodos();
+			}
+		} catch (error) {
+			errorMessage = error;
 		}
 	};
 
@@ -125,7 +163,10 @@
 				{/if}
 			</button>
 		</div>
-		<form class="form">
+		<form
+			class="form"
+			on:submit={onSubmit}
+		>
 			<label
 				class="form__label"
 				for="form--todo"
@@ -138,6 +179,7 @@
 				name="todo"
 				id="form--todo"
 				placeholder="Create a new todo..."
+				bind:value={formData}
 			/>
 		</form>
 		<ul

@@ -133,7 +133,7 @@ ul {
 	}
 
 	&__input {
-		width: 225px;
+		width: clamp(200px, 50%, calc(600px - 5rem));
 		padding: 1rem 2.5rem;
 		border: none;
 		border-radius: 0.2rem;

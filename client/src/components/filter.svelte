@@ -49,14 +49,14 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 1rem 0.5rem;
-		margin: auto;
+		margin: 1rem auto;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		border-radius: 0.5rem;
-    transition: all 100ms ease-in-out;
+		transition: all 100ms ease-in-out;
 
 		&--dark {
 			background-color: map.get($map: c.$dark-theme-clrs, $key: 'very-dark-grayish-blue');
-      box-shadow: 0 0 10px rgb(21, 20, 20);
+			box-shadow: 0 0 10px rgb(21, 20, 20);
 		}
 	}
 
