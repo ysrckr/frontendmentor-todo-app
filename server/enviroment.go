@@ -15,6 +15,7 @@ type Enviroment struct {
 	DBUSER         string
 	DBPASSWORD     string
 	DBNAME         string
+	DBHOST         string
 	ALLOWEDORIGINS []string
 }
 
@@ -36,6 +37,7 @@ func (e *Enviroment) SetEnviromentVars() {
 	e.DBUSER = os.Getenv("DB_USER")
 	e.DBPASSWORD = os.Getenv("DB_PASSWORD")
 	e.DBNAME = os.Getenv("DB_NAME")
+	e.DBHOST = os.Getenv("DB_HOST")
 	e.ALLOWEDORIGINS = strings.Split(os.Getenv("ALLOWED_ORIGINS"), ";")
 }
 

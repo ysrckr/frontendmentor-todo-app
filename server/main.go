@@ -17,7 +17,7 @@ func main() {
 
 	Env.SetEnviromentVars()
 
-	database.DB.Initialise(Env.DB, Env.DBUSER, Env.DBPASSWORD, Env.DBNAME)
+	database.DB.Initialise(Env.DB, Env.DBUSER, Env.DBPASSWORD, Env.DBNAME, Env.DBHOST)
 
 	InitialiseServer(Env.PORT, Env.ALLOWEDORIGINS, allowedMethods)
 }
