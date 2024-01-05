@@ -22,6 +22,11 @@ func (e *Enviroment) SetEnviromentVars() {
 		if err != nil {
 			log.Println(err)
 		}
+	} else {
+		err := godotenv.Load()
+		if err != nil {
+			log.Println(err)
+		}
 	}
 
 	e.PORT = os.Getenv("API_PORT")
@@ -31,6 +36,12 @@ func (e *Enviroment) SetEnviromentVars() {
 	e.DBNAME = os.Getenv("DB_NAME")
 }
 
-var Env = &Enviroment{
-	Mode: "development",
+func (e *Enviroment) SetEnviromentMode(mode string) {
+	if mode != "" {
+		e.Mode = mode
+	} else {
+		e.Mode = "production"
+	}
 }
+
+var Env = &Enviroment{}
