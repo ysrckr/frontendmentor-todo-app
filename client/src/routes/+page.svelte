@@ -32,7 +32,18 @@
 			signal,
 		});
 		if (response.ok) {
-			todos = todos.filter((todo) => todo.id !== id);
+			getAllTodos();
+		}
+	};
+
+	const toggleTodoStatus = async (id: number) => {
+		const response = await fetch(todosEndPoint + `/${id}`, {
+			method: 'PATCH',
+			signal,
+		});
+
+		if (response.ok) {
+			getAllTodos();
 		}
 	};
 
@@ -149,6 +160,7 @@
 							'todo__checkbox--checked': todo.completed,
 							'todo__checkbox--dark': $mode === 'dark',
 						})}
+						on:click={() => toggleTodoStatus(todo.id)}
 					>
 					</button>
 					<p
