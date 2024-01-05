@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -14,6 +15,7 @@ type Enviroment struct {
 	DBUSER     string
 	DBPASSWORD string
 	DBNAME     string
+  ALLOWEDORIGINS []string
 }
 
 func (e *Enviroment) SetEnviromentVars() {
@@ -34,6 +36,7 @@ func (e *Enviroment) SetEnviromentVars() {
 	e.DBUSER = os.Getenv("DB_USER")
 	e.DBPASSWORD = os.Getenv("DB_PASSWORD")
 	e.DBNAME = os.Getenv("DB_NAME")
+  e.ALLOWEDORIGINS = strings.Split(os.Getenv("ALLOWED_ORIGINS"), ";")
 }
 
 func (e *Enviroment) SetEnviromentMode(mode string) {
