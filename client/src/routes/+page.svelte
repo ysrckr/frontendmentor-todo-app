@@ -13,7 +13,7 @@
 
 	let formData = '';
 
-	const todosEndPoint = 'http://frontendmentor-todo-app.onrender.com' + '/todos';
+	const todosEndPoint = 'https://frontendmentor-todo-app.onrender.com/' + "todos"
 
 	const controller = new AbortController();
 	const signal = controller.signal;
