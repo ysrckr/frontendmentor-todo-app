@@ -7,7 +7,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-const SSLMODE = "disable"
+const SSLMODE = "prefer"
 
 type Database struct {
 	Db    *sqlx.DB
