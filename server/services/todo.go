@@ -20,7 +20,7 @@ func SelectAllTodos() ([]modals.Todo, error) {
 
 	todos := []modals.Todo{}
 
-	ctx, cancel := createTimedContext(200)
+	ctx, cancel := createTimedContext(10000)
 
 	defer cancel()
 

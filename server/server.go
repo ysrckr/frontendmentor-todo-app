@@ -16,11 +16,10 @@ func InitialiseServer(PORT string, AllowedOrigins, AllowMethods []string) {
 	apiRouter := chi.NewRouter()
 
 	r.Use(middleware.Logger)
+	r.Use(middleware.StripSlashes)
 	r.Use(middleware.Heartbeat("/health-check"))
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: AllowedOrigins,
-		// AllowedOrigins: []string{"https://*", "http://*"},
-		// AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
+		AllowedOrigins:   AllowedOrigins,
 		AllowedMethods:   AllowMethods,
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
