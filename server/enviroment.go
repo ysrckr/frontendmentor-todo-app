@@ -21,7 +21,7 @@ type Enviroment struct {
 
 func (e *Enviroment) SetEnviromentVars() {
 	if e.Mode == "development" {
-		err := godotenv.Load("../.env")
+		err := godotenv.Load()
 		if err != nil {
 			log.Println(err)
 		}
