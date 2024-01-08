@@ -36,7 +36,7 @@ func SelectAllTodos() ([]modals.Todo, error) {
 func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 	todos := []modals.Todo{}
 
-	ctx, cancel := createTimedContext(200)
+	ctx, cancel := createTimedContext(10000)
 
 	defer cancel()
 
@@ -50,7 +50,7 @@ func SelectAllTodosWithCompletedStatus(status bool) ([]modals.Todo, error) {
 }
 
 func InsertATodo(todo modals.Todo) (int, error) {
-	ctx, cancel := createTimedContext(200)
+	ctx, cancel := createTimedContext(10000)
 
 	defer cancel()
 
@@ -67,7 +67,7 @@ func InsertATodo(todo modals.Todo) (int, error) {
 }
 
 func UpdateATodoStatusWithOpposite(id int) (int, error) {
-	ctx, cancel := createTimedContext(200)
+	ctx, cancel := createTimedContext(10000)
 
 	defer cancel()
 
@@ -85,7 +85,7 @@ func UpdateATodoStatusWithOpposite(id int) (int, error) {
 }
 
 func RemoveATodo(id int) error {
-	ctx, cancel := createTimedContext(200)
+	ctx, cancel := createTimedContext(10000)
 
 	defer cancel()
 
